@@ -3,6 +3,7 @@ let Orders = [
     {
         id: "1",
         customer: "Ali",
+        food: "burger",
         restaurant: {
             id: "11",
             name: "Mc Donald",
@@ -12,28 +13,31 @@ let Orders = [
 
 // Create and Save a new order
 exports.create = (req, res) => {
-    // if (!req.body.content) {
-    //     return res.status(400).send({
-    //         message: "Order content can not be empty",
-    //     });
-    // }
-
     const restaurantId = req.body.restaurantId;
     let restaurant;
     Restaurants.forEach(function (item) {
         if (item.id == restaurantId) {
             restaurant = item;
-        } else {
-            res.send({
-                error: "There is no Restaurant with that id",
-            });
         }
     });
+
+    if (restaurant == undefined) {
+        return res.send({
+            error: "There  is no restaurant with this id",
+        });
+    }
+
+    if(!restaurant.foods.includes(req.body.food)){
+        return res.send({
+            error: "This Restaurant does not have this food",
+        });
+    }
 
     // Create a Order
     const order = {
         id: req.body.id,
         customer: req.body.customer || "Untitled customer",
+        food: req.body.food,
         restaurant: {
             id: restaurantId,
             name: restaurant.name,
@@ -66,6 +70,7 @@ exports.update = (req, res) => {
     Orders.forEach(function (item) {
         if (item.id == id) {
             item.customer = req.body.customer;
+            item.food = req.body.food;
             item.restaurant = req.body.restaurant;
         }
         res.send(item);

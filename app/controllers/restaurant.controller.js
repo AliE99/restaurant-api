@@ -3,27 +3,13 @@ let Restaurants = [
         id: "1",
         name: "pizza hot",
         address: "tehran",
-        foods: [
-            {
-                name: "pizza",
-            },
-            {
-                name: "sandwich",
-            },
-        ],
+        foods: ["pizza", "burger", "pasta"],
     },
     {
         id: "11",
         name: "Mc Donald",
         address: "tehran",
-        foods: [
-            {
-                name: "pizza",
-            },
-            {
-                name: "sandwich",
-            },
-        ],
+        foods: ["pizza", "burger", "pasta"],
     },
 ];
 
